@@ -1,0 +1,9 @@
+server:
+  port: 8090
+
+spring:
+    datasource:
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://127.0.0.1:3306/peakfortake?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false
+        username: root
+        password: 123456
