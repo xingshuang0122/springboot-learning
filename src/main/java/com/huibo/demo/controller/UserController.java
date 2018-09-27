@@ -11,12 +11,14 @@
 package com.huibo.demo.controller;
 
 
-import com.huibo.demo.mapper.UserMapper;
 import com.huibo.demo.model.User;
+import com.huibo.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -28,10 +30,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserService userService;
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public User getUser(){
-        return this.userMapper.findByName("xing");
+    public List<User> getUser(){
+        return this.userService.findAllUsersByPage(2,3);
     }
 }

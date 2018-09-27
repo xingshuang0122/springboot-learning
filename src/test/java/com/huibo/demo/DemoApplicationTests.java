@@ -1,5 +1,6 @@
 package com.huibo.demo;
 
+import com.github.pagehelper.PageHelper;
 import com.huibo.demo.mapper.UserMapper;
 import com.huibo.demo.model.User;
 import org.junit.Assert;
@@ -26,26 +27,26 @@ public class DemoApplicationTests {
     @Test
     public void findByName() {
         User user = this.userMapper.findByName("xing");
-//        System.out.println(user);
         Assert.assertEquals("77", user.getPassword());
+    }
 
-        User user1 = new User();
-        user1.setUsername("哈哈哈");
-        User user2 = this.userMapper.findByName1(user1);
-//        System.out.println(user2);
+    public void findByObject(){
+        User user = new User();
+        user.setUsername("哈哈哈");
+        User user2 = this.userMapper.findByObject(user);
         Assert.assertEquals("爱空间管控闹人", user2.getPassword());
     }
 
     @Test
-    @Rollback
     public void insertUser() {
-        Integer result = this.userMapper.insertUser("测试", "123456");
+        Integer result = this.userMapper.insertUser("xing1", "77");
         System.out.println(result);
         Assert.assertEquals(1, result.intValue());
     }
 
     @Test
     public void findAllUsers() {
+        PageHelper.startPage(1,3);
         List<User> users = this.userMapper.findAllUsers();
         for (User item : users) {
             System.out.println(item);
