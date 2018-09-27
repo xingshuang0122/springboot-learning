@@ -11,7 +11,7 @@
 package com.huibo.demo.model;
 
 
-import org.springframework.beans.factory.annotation.Value;
+import java.io.Serializable;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
  * @create 2018/9/26 20:56
  */
 
-public class User {
+public class User implements Serializable {
     /**
      * Id
      */

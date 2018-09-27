@@ -11,6 +11,8 @@
 
 package com.huibo.demo.model;
 
+import java.io.Serializable;
+
 /**
  * <一句话功能简述> <br>
  *
@@ -18,7 +20,7 @@ package com.huibo.demo.model;
  * @date 2018/9/27 13:25
  */
 
-public class Address {
+public class Address implements Serializable {
     /**
      * id主键
      */

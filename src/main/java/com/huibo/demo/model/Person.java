@@ -11,6 +11,7 @@
 
 package com.huibo.demo.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ import java.util.List;
  * @date 2018/9/27 13:26
  */
 
-public class Person {
+public class Person implements Serializable {
     /**
      * Id
      */

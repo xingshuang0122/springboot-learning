@@ -60,8 +60,8 @@ public interface PersonMapper {
      */
     @Results({
             @Result(property = "id", column = "id"),
-//            @Result(property = "nickName", column = "nick_name"),
-//            @Result(property = "addressId", column = "address_id"),
+            @Result(property = "nickName", column = "nick_name"),
+            @Result(property = "addressId", column = "address_id"),
             @Result(property = "address", column = "address_id", one = @One(select = "com.huibo.demo.mapper.AddressMapper.findAddressById")),
             @Result(property = "cars", column = "id", many = @Many(select = "com.huibo.demo.mapper.CarMapper.findCarByPersonId"))
     })
