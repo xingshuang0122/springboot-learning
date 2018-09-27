@@ -43,4 +43,17 @@ public class UserServiceTest {
         Assert.assertEquals(2, users.size());
 //        Assert.assertEquals("sfs",users.get(0).getUsername());
     }
+
+    @Test
+    public void testRedisCache(){
+        List<User> users = this.userService.findAllUsersByPage(2, 2);
+        for (User item : users) {
+            System.out.println(item);
+        }
+        System.out.println("------------------------------------------------------");
+        users = this.userService.findAllUsersByPage(2, 2);
+        for (User item : users) {
+            System.out.println(item);
+        }
+    }
 }

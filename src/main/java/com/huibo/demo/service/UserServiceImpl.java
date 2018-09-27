@@ -15,6 +15,8 @@ import com.github.pagehelper.PageHelper;
 import com.huibo.demo.mapper.UserMapper;
 import com.huibo.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +34,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
 
+    @Cacheable(value = "findAllUsersByPage", key = "#startPageIndex +\"+\"+ #pageSize")
     @Override
     public List<User> findAllUsersByPage(Integer startPageIndex, Integer pageSize) {
         PageHelper.startPage(startPageIndex, pageSize);
