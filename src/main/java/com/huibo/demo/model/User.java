@@ -17,7 +17,7 @@ import java.io.Serializable;
  * 〈一句话功能简述〉<br>
  *
  * @author xingshuang
- * @create 2018/9/26 20:56
+ * @date 2018/9/26 20:56
  */
 
 public class User implements Serializable {

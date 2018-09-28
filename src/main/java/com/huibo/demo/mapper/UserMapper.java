@@ -63,7 +63,7 @@ public interface UserMapper {
      * @param user 对象
      * @return 用户对象
      */
-    @Select("SELECT * FROM user WHERE USERNAME = #{username}")
+    @Select("SELECT * FROM user WHERE id = #{id}")
     User findByObject(User user);
 
     /**

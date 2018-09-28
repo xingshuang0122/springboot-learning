@@ -11,6 +11,7 @@
 
 package com.huibo.demo.config;
 
+import com.huibo.demo.config.param.UserRedisSerializer;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.CacheManager;
@@ -21,6 +22,7 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -43,6 +45,7 @@ public class RedisConfig{
     public RedisTemplate<String, Serializable> redisCacheTemplate(LettuceConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Serializable> template = new RedisTemplate<>();
         template.setKeySerializer(new StringRedisSerializer());
+//        template.setValueSerializer(new UserRedisSerializer());
         template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         template.setConnectionFactory(redisConnectionFactory);
         return template;
@@ -63,6 +66,7 @@ public class RedisConfig{
                 .withInitialCacheConfigurations(
                         singletonMap("test", RedisCacheConfiguration.defaultCacheConfig()
                                 .entryTtl(Duration.ofSeconds(120L))
+                                .computePrefixWith(cacheName -> cacheName.concat(":"))
                                 .disableCachingNullValues()))
                 .transactionAware().build();
         return cacheManager;

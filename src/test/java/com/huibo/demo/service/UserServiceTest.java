@@ -56,4 +56,24 @@ public class UserServiceTest {
             System.out.println(item);
         }
     }
+
+    @Test
+    public void findUserById(){
+        User user = new User();
+        user.setId(1);
+        User user1 = this.userService.findUserById(user);
+        System.out.println(user1);
+        System.out.println(this.userService.findUserById(user));
+        System.out.println(this.userService.findUserById(user));
+        System.out.println(this.userService.findUserById(user));
+    }
+
+    @Test
+    public void updateUserById(){
+        User user = new User();
+        user.setId(1);
+        user.setUsername("test");
+        user.setPassword("发顺丰");
+        this.userService.updateUserById(user);
+    }
 }

@@ -14,10 +14,15 @@ package com.huibo.demo.service;
 import com.github.pagehelper.PageHelper;
 import com.huibo.demo.mapper.UserMapper;
 import com.huibo.demo.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -27,18 +32,40 @@ import java.util.List;
  * @author 邢双
  * @create 2018/9/27 9:01
  */
+@Transactional(rollbackFor = RuntimeException.class)
 @Service
 @CacheConfig(cacheNames = "user")
 public class UserServiceImpl implements UserService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     private UserMapper userMapper;
 
 
-    @Cacheable(key = "\"findAllUsersByPage:\"+#startPageIndex +\"+\"+ #pageSize")
+    @Cacheable(key = "'findAllUsersByPage:' + #startPageIndex + '+' + #pageSize")
     @Override
-    public List<User> findAllUsersByPage(Integer startPageIndex, Integer pageSize) {
+    public List<User> findAllUsersByPage(Integer startPageIndex, Integer pageSize) throws RuntimeException {
         PageHelper.startPage(startPageIndex, pageSize);
         return this.userMapper.findAllUsers();
+    }
+
+    @Cacheable(key = "#user.id")
+    @Override
+    public User findUserById(User user) throws RuntimeException {
+        Assert.notNull(user.getId(), "username must not be null!");
+        return this.userMapper.findByObject(user);
+    }
+
+    @CachePut(key = "#user.id")
+    @Override
+    public User updateUserById(User user) throws RuntimeException {
+        Assert.notNull(user.getId(), "user id must not be null");
+        logger.info(user.toString());
+        Integer result = this.userMapper.updateUserById(user);
+        if (result <= 0) {
+            throw new RuntimeException("update user failure");
+        }
+        return user;
     }
 }
