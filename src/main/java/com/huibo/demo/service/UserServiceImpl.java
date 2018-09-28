@@ -28,13 +28,14 @@ import java.util.List;
  * @create 2018/9/27 9:01
  */
 @Service
+@CacheConfig(cacheNames = "user")
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
 
 
-    @Cacheable(value = "findAllUsersByPage", key = "#startPageIndex +\"+\"+ #pageSize")
+    @Cacheable(key = "\"findAllUsersByPage:\"+#startPageIndex +\"+\"+ #pageSize")
     @Override
     public List<User> findAllUsersByPage(Integer startPageIndex, Integer pageSize) {
         PageHelper.startPage(startPageIndex, pageSize);
