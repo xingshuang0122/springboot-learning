@@ -55,4 +55,9 @@ public class RedisTest {
         redisCacheTemplate.opsForValue().set(key, user);
         logger.info(key + "=" + redisCacheTemplate.opsForValue().get(key));
     }
+
+    @Test
+    public void test1(){
+
+    }
 }
