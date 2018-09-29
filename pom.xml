@@ -17,6 +17,9 @@
         <module>demo-cloud-server</module>
         <module>demo-cloud-client</module>
         <module>demo-cloud-client-ribbon</module>
+        <module>demo-cloud-client-zuul</module>
+        <module>demo-config-server</module>
+        <module>demo-config-client</module>
     </modules>
 
 </project>
