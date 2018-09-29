@@ -20,7 +20,7 @@ import java.util.List;
  * <一句话功能简述> <br>
  *
  * @author 邢双
- * @create 2018/9/27 9:00
+ * @date 2018/9/27 9:00
  */
 public interface UserService {
 

@@ -30,7 +30,7 @@ import java.util.List;
  * <一句话功能简述> <br>
  *
  * @author 邢双
- * @create 2018/9/27 9:01
+ * @date 2018/9/27 9:01
  */
 @Transactional(rollbackFor = RuntimeException.class)
 @Service
@@ -41,7 +41,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
-
 
     @Cacheable(key = "'findAllUsersByPage:' + #startPageIndex + '+' + #pageSize")
     @Override
@@ -62,7 +61,7 @@ public class UserServiceImpl implements UserService {
     public User updateUserById(User user) throws RuntimeException {
         Assert.notNull(user.getId(), "user id must not be null");
         logger.info(user.toString());
-        Integer result = this.userMapper.updateUserById(user);
+        Integer result =  this.userMapper.updateUserById(user);
         if (result <= 0) {
             throw new RuntimeException("update user failure");
         }
