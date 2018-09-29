@@ -14,6 +14,9 @@
     <modules>
         <module>demo-admin</module>
         <module>demo-app</module>
+        <module>demo-cloud-server</module>
+        <module>demo-cloud-client</module>
+        <module>demo-cloud-client-ribbon</module>
     </modules>
 
 </project>
