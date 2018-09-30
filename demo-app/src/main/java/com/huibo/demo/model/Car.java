@@ -21,6 +21,7 @@ import java.io.Serializable;
  */
 
 public class Car implements Serializable {
+    private static final long serialVersionUID = -5703148112137320630L;
     /**
      * id主键
      */

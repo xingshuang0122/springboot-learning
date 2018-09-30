@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
  * @author xingshuang
  * @date 2018/9/26 21:25
  */
-@Api(value = "UserController", description = "用户管理")
+@Api(value = "UserController")
 @RestController
 public class UserController {
 
@@ -39,7 +39,7 @@ public class UserController {
             @ApiImplicitParam(paramType = "query", name = "startPageIndex", value = "起始页面索引", dataType = "Integer"),
             @ApiImplicitParam(paramType = "query", name = "pageSize", value = "页面大小", dataType = "Integer")
     })
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    @PostMapping(value = "/user")
     public MapResult getUser(@RequestParam Integer startPageIndex, @RequestParam Integer pageSize) {
         try {
             return MapResult.success(this.userService.findAllUsersByPage(startPageIndex, pageSize));
@@ -49,7 +49,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "查询所有用户，采用无参方式", notes = "测试", httpMethod = "GET")
-    @RequestMapping(value = "/user1", method = RequestMethod.GET)
+    @GetMapping(value = "/user1")
     public MapResult getUser1() {
         try {
             return MapResult.success(this.userService.findAllUsersByPage(1, 2));
@@ -63,7 +63,7 @@ public class UserController {
             @ApiImplicitParam(paramType = "path", name = "startPageIndex", value = "起始页面索引", dataType = "Integer"),
             @ApiImplicitParam(paramType = "path", name = "pageSize", value = "页面大小", dataType = "Integer")
     })
-    @RequestMapping(value = "/user2/{startPageIndex}/{pageSize}", method = RequestMethod.GET)
+    @GetMapping(value = "/user2/{startPageIndex}/{pageSize}")
     public MapResult getUser2(@PathVariable Integer startPageIndex, @PathVariable Integer pageSize) {
         try {
             return MapResult.success(this.userService.findAllUsersByPage(startPageIndex, pageSize));
@@ -77,7 +77,7 @@ public class UserController {
             @ApiImplicitParam(paramType = "query", name = "startPageIndex", value = "起始页面索引", dataType = "Integer"),
             @ApiImplicitParam(paramType = "query", name = "pageSize", value = "页面大小", dataType = "Integer")
     })
-    @RequestMapping(value = "/user3", method = RequestMethod.GET)
+    @GetMapping(value = "/user3")
     public MapResult getUser3(@RequestParam Integer startPageIndex, @RequestParam Integer pageSize) {
         try {
             return MapResult.success(this.userService.findAllUsersByPage(startPageIndex, pageSize));
@@ -90,7 +90,7 @@ public class UserController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "body", name = "user", value = "user对象，id必填", dataType = "User")
     })
-    @RequestMapping(value = "/user/get/by/id", method = RequestMethod.POST)
+    @PostMapping(value = "/user/get/by/id")
     public MapResult getUserById(@RequestBody User user) {
         try {
             return MapResult.success(this.userService.findUserById(user));
@@ -103,7 +103,7 @@ public class UserController {
     @ApiImplicitParams({
             @ApiImplicitParam(paramType = "body", name = "user", value = "user对象，id必填", dataType = "User")
     })
-    @RequestMapping(value = "/user/update/by/id", method = RequestMethod.POST)
+    @PostMapping(value = "/user/update/by/id")
     public MapResult updateUserById(@RequestBody User user) {
         try {
             return MapResult.success(this.userService.updateUserById(user));

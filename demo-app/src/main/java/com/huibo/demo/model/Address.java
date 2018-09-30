@@ -21,6 +21,7 @@ import java.io.Serializable;
  */
 
 public class Address implements Serializable {
+    private static final long serialVersionUID = 5134058248140887329L;
     /**
      * id主键
      */

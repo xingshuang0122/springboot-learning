@@ -60,15 +60,16 @@ public class FileUploadController {
         return result;
     }
 
+
     @PostMapping("/upload2")
     @ResponseBody
     public List<Map<String, String>> upload2(@RequestParam("file") MultipartFile[] files) throws IOException {
         if (files == null || files.length == 0) {
-            return null;
+            return new ArrayList<>(1);
         }
         List<Map<String, String>> results = new ArrayList<>();
         for (MultipartFile file : files) {
-            // TODO Spring Mvc 提供的写入方式
+            // TODO Spring Mvc 提供的写入方式Y
             file.transferTo(new File("D:/" + file.getOriginalFilename()));
             Map<String, String> map = new HashMap<>(16);
             map.put("contentType", file.getContentType());
@@ -83,7 +84,8 @@ public class FileUploadController {
     @ResponseBody
     public void upload2(String base64) throws IOException {
         // TODO BASE64 方式的 格式和名字需要自己控制（如 png 图片编码后前缀就会是 data:image/png;base64,）
-        final File tempFile = new File("D:/test.jpg");
+        String path = "D:/test.jpg";
+        final File tempFile = new File(path);
         // TODO 防止有的传了 data:image/png;base64, 有的没传的情况
         String[] d = base64.split("base64,");
         final byte[] bytes = Base64Utils.decodeFromString(d.length > 1 ? d[1] : d[0]);

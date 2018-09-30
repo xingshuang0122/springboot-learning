@@ -28,7 +28,7 @@ public class TestHealthIndicator implements HealthIndicator {
 
     @Override
     public Health health() {
-        int code = check();
+        int code = check(false);
         if (code != 0) {
             Health.down().withDetail("code", code).withDetail("version", VERSION).build();
         }
@@ -37,7 +37,7 @@ public class TestHealthIndicator implements HealthIndicator {
 
     }
 
-    private Integer check(){
-        return 0;
+    private Integer check(Boolean condition) {
+        return condition ? 1 : 0;
     }
 }

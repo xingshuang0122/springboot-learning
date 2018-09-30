@@ -32,7 +32,7 @@ public interface UserService {
      * @return 执行结果
      * @throws RuntimeException 异常
      */
-    List<User> findAllUsersByPage(Integer startPageIndex, Integer pageSize) throws RuntimeException;
+    List<User> findAllUsersByPage(Integer startPageIndex, Integer pageSize);
 
     /**
      * 传入user对象，必须要有username
@@ -41,7 +41,7 @@ public interface UserService {
      * @return 执行结果
      * @throws RuntimeException 异常
      */
-    User findUserById(User user) throws RuntimeException;
+    User findUserById(User user);
 
     /**
      * 根据Id来更新User信息
@@ -50,5 +50,5 @@ public interface UserService {
      * @return 执行结果
      * @throws RuntimeException 运行时异常
      */
-    User updateUserById(User user) throws RuntimeException;
+    User updateUserById(User user);
 }

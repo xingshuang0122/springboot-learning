@@ -12,6 +12,7 @@
 package com.huibo.demo.service;
 
 import com.github.pagehelper.PageHelper;
+import com.huibo.demo.exception.DbHandleException;
 import com.huibo.demo.mapper.UserMapper;
 import com.huibo.demo.model.User;
 import org.slf4j.Logger;
@@ -44,26 +45,26 @@ public class UserServiceImpl implements UserService {
 
     @Cacheable(key = "'findAllUsersByPage:' + #startPageIndex + '+' + #pageSize")
     @Override
-    public List<User> findAllUsersByPage(Integer startPageIndex, Integer pageSize) throws RuntimeException {
+    public List<User> findAllUsersByPage(Integer startPageIndex, Integer pageSize) {
         PageHelper.startPage(startPageIndex, pageSize);
         return this.userMapper.findAllUsers();
     }
 
     @Cacheable(key = "#user.id")
     @Override
-    public User findUserById(User user) throws RuntimeException {
+    public User findUserById(User user) {
         Assert.notNull(user.getId(), "username must not be null!");
         return this.userMapper.findByObject(user);
     }
 
     @CachePut(key = "#user.id")
     @Override
-    public User updateUserById(User user) throws RuntimeException {
+    public User updateUserById(User user) {
         Assert.notNull(user.getId(), "user id must not be null");
-        logger.info(user.toString());
-        Integer result =  this.userMapper.updateUserById(user);
+        logger.info("user info {}", user);
+        Integer result = this.userMapper.updateUserById(user);
         if (result <= 0) {
-            throw new RuntimeException("update user failure");
+            throw new DbHandleException("update user failure");
         }
         return user;
     }

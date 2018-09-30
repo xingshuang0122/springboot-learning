@@ -29,18 +29,12 @@ public class AppApplicationTests {
         Assert.assertEquals("77", user.getPassword());
     }
 
+    @Test
     public void findByObject(){
         User user = new User();
-        user.setUsername("哈哈哈");
+        user.setId(1);
         User user2 = this.userMapper.findByObject(user);
-        Assert.assertEquals("爱空间管控闹人", user2.getPassword());
-    }
-
-    @Test
-    public void insertUser() {
-        Integer result = this.userMapper.insertUser("xing1", "77");
-        System.out.println(result);
-        Assert.assertEquals(1, result.intValue());
+        Assert.assertEquals("test", user2.getUsername());
     }
 
     @Test

@@ -49,7 +49,6 @@ public class RedisTest {
     public void redisTest1() {
         stringRedisTemplate.opsForValue().set("user:string", "测试");
         logger.info("user:string=" + stringRedisTemplate.opsForValue().get("user:string"));
-
         User user = userMapper.findByName("test");
         String key = "battle:user:1";
         redisCacheTemplate.opsForValue().set(key, user);

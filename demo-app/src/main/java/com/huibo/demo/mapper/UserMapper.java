@@ -14,7 +14,6 @@ package com.huibo.demo.mapper;
 import com.huibo.demo.model.User;
 import com.huibo.demo.provider.UserSqlProvider;
 import org.apache.ibatis.annotations.*;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -107,7 +106,7 @@ public interface UserMapper {
      * @param user 用户信息
      * @return 执行结果
      */
-    @Update("UPDATE user SET username=#{username}, password=#{password} WHERE id=#{id}")
+    @Update("UPDATE user SET username = #{username}, password = #{password} WHERE id=#{id}")
     Integer updateUserById(User user);
 
     /**
@@ -118,6 +117,15 @@ public interface UserMapper {
      */
     @Delete("DELETE FROM user WHERE id=#{id}")
     Integer deleteUserById(Integer id);
+
+    /**
+     * 根据名字来删除user
+     *
+     * @param username 名字
+     * @return 执行结果
+     */
+    @Delete("DELETE FROM user WHERE username=#{username}")
+    Integer deleteUserByName(String username);
 
 
 }

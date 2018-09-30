@@ -25,6 +25,10 @@ import java.util.Date;
 
 public class DateUtil {
 
+    private DateUtil() {
+        throw new UnsupportedOperationException();
+    }
+
     /**
      * 将Date类型的数据按照"yyyy-MM-dd HH:mm:ss"格式转换为字符串形式
      *

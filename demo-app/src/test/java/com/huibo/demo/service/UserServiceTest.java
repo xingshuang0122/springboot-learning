@@ -36,22 +36,21 @@ public class UserServiceTest {
 
     @Test
     public void findAllUsers() {
-        List<User> users = this.userService.findAllUsersByPage(2, 2);
+        List<User> users = this.userService.findAllUsersByPage(1, 2);
         for (User item : users) {
             System.out.println(item);
         }
         Assert.assertEquals(2, users.size());
-//        Assert.assertEquals("sfs",users.get(0).getUsername());
     }
 
     @Test
     public void testRedisCache(){
-        List<User> users = this.userService.findAllUsersByPage(2, 2);
+        List<User> users = this.userService.findAllUsersByPage(1, 2);
         for (User item : users) {
             System.out.println(item);
         }
         System.out.println("------------------------------------------------------");
-        users = this.userService.findAllUsersByPage(2, 2);
+        users = this.userService.findAllUsersByPage(1, 2);
         for (User item : users) {
             System.out.println(item);
         }
@@ -71,9 +70,9 @@ public class UserServiceTest {
     @Test
     public void updateUserById(){
         User user = new User();
-        user.setId(1);
-        user.setUsername("test");
-        user.setPassword("发顺丰");
+        user.setId(2);
+        user.setUsername("hello");
+        user.setPassword("东方故事");
         this.userService.updateUserById(user);
     }
 }

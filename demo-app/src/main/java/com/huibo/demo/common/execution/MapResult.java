@@ -29,22 +29,22 @@ public class MapResult extends HashMap<String, Object> {
     /**
      * 是否成功
      */
-    private final static String SUCCESS = "success";
+    private static final String SUCCESS = "success";
 
     /**
      * 错误消息或正确消息
      */
-    private final static String MESSAGE = "message";
+    private static final String MESSAGE = "message";
 
     /**
      * 对应数据
      */
-    private final static String DATA = "data";
+    private static final String DATA = "data";
 
     /**
      * 创建时间
      */
-    private final static String CREATE_TIME = "createTime";
+    private static final String CREATE_TIME = "createTime";
 
     /**
      * 返回相同的未知异常的map结果

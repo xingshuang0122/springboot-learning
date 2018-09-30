@@ -13,8 +13,10 @@ package com.huibo.demo.mapper;
 
 import com.huibo.demo.model.User;
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -28,34 +30,46 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserMapperTest {
 
     @Autowired
     private UserMapper userMapper;
 
     @Test
-    public void insertUserByObject() {
+    public void a_insertUserByObject() {
         User user = new User();
         user.setUsername("测试");
         user.setPassword("asf");
         Integer result = this.userMapper.insertUserByObject(user);
-        System.out.println(user);
         Assert.assertEquals(1, result.intValue());
     }
 
     @Test
-    public void updateUserById() {
-        User user = new User();
-        user.setId(1);
-        user.setUsername("test");
-        user.setPassword("222");
-        Integer result = this.userMapper.updateUserById(user);
-        System.out.println(result);
+    public void b_findByName1() {
+        User user = this.userMapper.findByName1("test");
+        System.out.println(user);
     }
 
     @Test
-    public void deleteUserById() {
-        Integer result = this.userMapper.deleteUserById(6);
+    public void b_findByName2() {
+        User user = this.userMapper.findByName2("test");
+        System.out.println(user);
+    }
+
+    @Test
+    public void c_deleteUserByName() {
+        Integer result = this.userMapper.deleteUserByName("测试");
+        Assert.assertEquals(1, result.intValue());
+    }
+
+    @Test
+    public void a_updateUserById() {
+        User user = new User();
+        user.setId(2);
+        user.setUsername("test1");
+        user.setPassword("222");
+        Integer result = this.userMapper.updateUserById(user);
         Assert.assertEquals(1, result.intValue());
     }
 
@@ -78,18 +92,5 @@ public class UserMapperTest {
 
         Integer resDelete = this.userMapper.deleteUserById(user.getId());
         Assert.assertEquals(1, resDelete.intValue());
-
-    }
-
-    @Test
-    public void findByName1(){
-        User user = this.userMapper.findByName1("test");
-        System.out.println(user);
-    }
-
-    @Test
-    public void findByName2(){
-        User user = this.userMapper.findByName2("test");
-        System.out.println(user);
     }
 }

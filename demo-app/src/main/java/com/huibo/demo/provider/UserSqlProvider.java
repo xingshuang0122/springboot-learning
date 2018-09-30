@@ -14,8 +14,6 @@ package com.huibo.demo.provider;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
-import javax.websocket.server.PathParam;
-
 /**
  * <一句话功能简述> <br>
  *
@@ -25,6 +23,8 @@ import javax.websocket.server.PathParam;
 
 public class UserSqlProvider {
 
+    private static final String FIND_BY_NAME_STRING_SQL = "SELECT * FROM user WHERE USERNAME = #{username}";
+
     /**
      * 方式1：直接自己手动编写sql语句
      *
@@ -32,24 +32,25 @@ public class UserSqlProvider {
      * @return sql语句
      */
     public String findByNameString(@Param("username") String username) {
-        return "SELECT * FROM user WHERE USERNAME = #{username}";
+        return FIND_BY_NAME_STRING_SQL;
     }
 
     /**
      * 方式2：也可以根据官方提供的API来编写动态SQL。
+     * SELECT("*");
+     * FROM("user");
+     * if (username != null) {
+     * WHERE("username = #{username}");
+     * }
      *
      * @param username 用户名
      * @return sql语句
      */
     public String findByNameSql(@Param("username") String username) {
-        return new SQL() {
-            {
-                SELECT("*");
-                FROM("user");
-                if (username != null) {
-                    WHERE("username = #{username}");
-                }
-            }
-        }.toString();
+        return new SQL()
+                .SELECT("*")
+                .FROM("user")
+                .WHERE("username = #{username}")
+                .toString();
     }
 }
