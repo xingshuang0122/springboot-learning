@@ -20,6 +20,8 @@
         <module>demo-cloud-client-zuul</module>
         <module>demo-config-server</module>
         <module>demo-config-client</module>
+        <module>demo-cloud-client-config-server</module>
+        <module>demo-cloud-client-config-client</module>
     </modules>
 
 </project>
