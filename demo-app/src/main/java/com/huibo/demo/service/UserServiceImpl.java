@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -43,13 +44,25 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Cacheable(key = "'findAllUsersByPage:' + #startPageIndex + '+' + #pageSize")
+    /**
+     * 使用缓存 @Cacheable(key = "'findAllUsersByPage:' + #startPageIndex + '+' + #pageSize")
+     *
+     * @param startPageIndex 起始页面索引
+     * @param pageSize       页面大小
+     * @return user列表
+     */
     @Override
     public List<User> findAllUsersByPage(Integer startPageIndex, Integer pageSize) {
         PageHelper.startPage(startPageIndex, pageSize);
         return this.userMapper.findAllUsers();
     }
 
+    /**
+     * 配置了findUserById函数的返回值将被加入缓存。同时在查询时，会先从缓存中获取，若不存在才再发起对数据库的访问
+     *
+     * @param user user对象
+     * @return user对象
+     */
     @Cacheable(key = "#user.id")
     @Override
     public User findUserById(User user) {
@@ -57,6 +70,12 @@ public class UserServiceImpl implements UserService {
         return this.userMapper.findByObject(user);
     }
 
+    /**
+     * 配置于函数上，能够根据参数定义条件来进行缓存，它与@Cacheable不同的是，它每次都会真是调用函数，所以主要用于数据新增和修改操作上
+     *
+     * @param user user对象
+     * @return user对象
+     */
     @CachePut(key = "#user.id")
     @Override
     public User updateUserById(User user) {
@@ -67,5 +86,32 @@ public class UserServiceImpl implements UserService {
             throw new DbHandleException("update user failure");
         }
         return user;
+    }
+
+    /**
+     * 配置于函数上，通常用在删除方法上，用来从缓存中移除相应数据
+     *
+     * @param id UserId
+     */
+    @CacheEvict(key = "#id")
+    @Override
+    public void deleteUserById(Integer id) {
+        logger.debug("根据Id=[{}]删除用户", id);
+        Integer result = this.userMapper.deleteUserById(id);
+        if (result != 1) {
+            throw new DbHandleException("delete user failure, id=" + id);
+        }
+    }
+
+    /**
+     * 插入一个User对象
+     *
+     * @param user user对象，主键Id在user中
+     * @return 执行成功个数
+     */
+    @Override
+    public Integer insertUser(User user) {
+        logger.debug("user info {}", user);
+        return this.userMapper.insertUserByObject(user);
     }
 }

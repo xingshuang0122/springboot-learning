@@ -51,4 +51,19 @@ public interface UserService {
      * @throws RuntimeException 运行时异常
      */
     User updateUserById(User user);
+
+    /**
+     * 根据Id来删除User
+     *
+     * @param id UserId
+     */
+    void deleteUserById(Integer id);
+
+    /**
+     * 添加User信息
+     *
+     * @param user user对象，主键Id在user中
+     * @return 执行成功个数
+     */
+    Integer insertUser(User user);
 }

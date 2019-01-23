@@ -76,13 +76,13 @@ public interface UserMapper {
     Integer insertUser(@Param("username") String username, @Param("password") String password);
 
     /**
-     * 根据对象来插入用户数据，useGeneratedKeys=true：获取数据库生成的主键
+     * 根据对象来插入用户数据，useGeneratedKeys=true：获取数据库生成的主键，id在user中
+     * 返回主键Id的写法: @Options(useGeneratedKeys = true)
      *
      * @param user 用户对象
-     * @return 执行结果
+     * @return 执行结果(并不是主键Id)
      */
     @Insert("INSERT INTO user(USERNAME,PASSWORD) VALUES(#{username}, #{password})")
-    @Options(useGeneratedKeys = true)
     Integer insertUserByObject(User user);
 
 

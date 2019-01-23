@@ -1,6 +1,6 @@
 /*
   Copyright (C), 2017-2018, 江苏汇博机器人技术股份有限公司
-  FileName: UserServiceTest
+  FileName: UserServiceImplTest
   Author:   ShuangPC
   Date:     2018/9/27 9:02
   Description: 
@@ -17,7 +17,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,7 +31,7 @@ import java.util.List;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class UserServiceTest {
+public class UserServiceImplTest {
 
     @Autowired
     private UserService userService;
@@ -75,4 +77,19 @@ public class UserServiceTest {
         user.setPassword("东方故事");
         this.userService.updateUserById(user);
     }
+
+    @Transactional
+    @Rollback
+    @Test
+    public void insetQueryDeleteUserById() {
+        User user = new User();
+        user.setUsername("insert");
+        user.setPassword("天天");
+        Integer id = this.userService.insertUser(user);
+        User userById = this.userService.findUserById(user);
+        Assert.assertEquals(user.getUsername(),userById.getUsername());
+        Assert.assertEquals(user.getPassword(),userById.getPassword());
+        this.userService.deleteUserById(user.getId());
+    }
+
 }
