@@ -22,6 +22,7 @@
         <module>demo-config-client</module>
         <module>demo-cloud-client-config-server</module>
         <module>demo-cloud-client-config-client</module>
+        <module>demo-mybatis-generate</module>
     </modules>
 
 </project>
