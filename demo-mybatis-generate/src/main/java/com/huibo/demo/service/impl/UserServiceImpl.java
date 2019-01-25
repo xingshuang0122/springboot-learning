@@ -43,6 +43,9 @@ public class UserServiceImpl implements UserService {
      */
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
+    /**
+     * userMapper对象
+     */
     private UserMapper userMapper;
 
     @Autowired

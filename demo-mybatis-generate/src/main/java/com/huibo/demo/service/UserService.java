@@ -12,7 +12,6 @@
 package com.huibo.demo.service;
 
 
-import com.huibo.demo.exceptions.ServiceException;
 import com.huibo.demo.model.entity.User;
 
 import java.util.List;
@@ -47,7 +46,7 @@ public interface UserService {
      * @param id 主键Id
      * @return user对象
      */
-    User getByPrimaryKey(Integer id) throws ServiceException;
+    User getByPrimaryKey(Integer id);
 
     /**
      * 根据主键Id列表查询多个用户
@@ -60,8 +59,8 @@ public interface UserService {
     /**
      * 根据用户名列表统计个数
      *
-     * @param usernames 用户名列表
+     * @param names 用户名列表
      * @return 个数
      */
-    Integer countByNames(List<String> usernames);
+    Integer countByNames(List<String> names);
 }
