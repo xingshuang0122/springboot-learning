@@ -1,10 +1,17 @@
 package com.huibo.demo.mapper;
 
-import com.huibo.demo.model.User;
-import com.huibo.demo.model.UserExample;
-import java.util.List;
+import com.huibo.demo.model.entity.User;
+import com.huibo.demo.model.example.UserExample;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
+/**
+ * UserMapper
+ *
+ * @author xingshuang
+ * @date 2019/1/25
+ */
 public interface UserMapper {
     long countByExample(UserExample example);
 

@@ -1,8 +1,13 @@
-package com.huibo.demo.model;
+package com.huibo.demo.model.example;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * UserExample
+ *
+ * @author xingshuang
+ * @date 2019/1/25
+ */
 public class UserExample {
     protected String orderByClause;
 

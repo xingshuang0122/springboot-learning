@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.huibo.demo.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.huibo.demo.model.entity.User">
+<mapper namespace="com.huibo.demo.mapper.CarMapper">
+  <resultMap id="BaseResultMap" type="com.huibo.demo.model.entity.Car">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="color" jdbcType="VARCHAR" property="color" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="person_id" jdbcType="INTEGER" property="personId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, password
+    id, color, name, person_id
   </sql>
-  <select id="selectByExample" parameterType="com.huibo.demo.model.example.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.huibo.demo.model.example.CarExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from user
+    from car
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -92,67 +93,76 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from user
+    from car
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
+    delete from car
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.huibo.demo.model.example.UserExample">
-    delete from user
+  <delete id="deleteByExample" parameterType="com.huibo.demo.model.example.CarExample">
+    delete from car
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.huibo.demo.model.entity.User">
-    insert into user (id, username, password
-      )
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.huibo.demo.model.entity.Car">
+    insert into car (id, color, name, 
+      person_id)
+    values (#{id,jdbcType=INTEGER}, #{color,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{personId,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.huibo.demo.model.entity.User">
-    insert into user
+  <insert id="insertSelective" parameterType="com.huibo.demo.model.entity.Car">
+    insert into car
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="username != null">
-        username,
+      <if test="color != null">
+        color,
       </if>
-      <if test="password != null">
-        password,
+      <if test="name != null">
+        name,
+      </if>
+      <if test="personId != null">
+        person_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
+      <if test="color != null">
+        #{color,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="personId != null">
+        #{personId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.huibo.demo.model.example.UserExample" resultType="java.lang.Long">
-    select count(*) from user
+  <select id="countByExample" parameterType="com.huibo.demo.model.example.CarExample" resultType="java.lang.Long">
+    select count(*) from car
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update user
+    update car
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.username != null">
-        username = #{record.username,jdbcType=VARCHAR},
+      <if test="record.color != null">
+        color = #{record.color,jdbcType=VARCHAR},
       </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personId != null">
+        person_id = #{record.personId,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -160,30 +170,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update user
+    update car
     set id = #{record.id,jdbcType=INTEGER},
-      username = #{record.username,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR}
+      color = #{record.color,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      person_id = #{record.personId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.huibo.demo.model.entity.User">
-    update user
+  <update id="updateByPrimaryKeySelective" parameterType="com.huibo.demo.model.entity.Car">
+    update car
     <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
+      <if test="color != null">
+        color = #{color,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="personId != null">
+        person_id = #{personId,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.huibo.demo.model.entity.User">
-    update user
-    set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="com.huibo.demo.model.entity.Car">
+    update car
+    set color = #{color,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      person_id = #{personId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
